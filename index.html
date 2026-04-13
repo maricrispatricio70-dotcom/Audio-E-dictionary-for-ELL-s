@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Audio Dictionary Pro v2</title>
+  <title>Dictionary Pro v4</title>
 
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: Arial;
       margin: 0;
-      background: #eef3ff;
+      background: #f1f5ff;
+      transition: 0.3s;
     }
 
     header {
@@ -17,28 +18,41 @@
       text-align: center;
     }
 
-    #searchBox {
+    #search {
       width: 80%;
-      padding: 12px;
+      padding: 10px;
       margin-top: 10px;
       border-radius: 8px;
       border: none;
-      font-size: 16px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    button.small {
+      padding: 6px 10px;
+      font-size: 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
     }
 
     .container {
-      max-width: 850px;
+      max-width: 900px;
       margin: auto;
       padding: 20px;
     }
 
     .card {
       background: white;
-      padding: 15px;
       margin: 10px 0;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      transition: 0.2s;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
 
     .word {
@@ -47,27 +61,42 @@
       color: #1e3a8a;
     }
 
+    .type {
+      font-size: 12px;
+      color: gray;
+    }
+
     .meaning {
-      margin: 5px 0 10px;
-      color: #444;
+      margin: 5px 0;
     }
 
     button {
-      padding: 8px 12px;
-      border: none;
       background: #2563eb;
       color: white;
+      border: none;
+      padding: 6px 10px;
       border-radius: 6px;
       cursor: pointer;
+      margin-right: 5px;
     }
 
     button:hover {
       background: #1e40af;
     }
 
-    .highlight {
-      background: yellow;
-      font-weight: bold;
+    /* 🌙 DARK MODE */
+    .dark {
+      background: #111827;
+      color: white;
+    }
+
+    .dark .card {
+      background: #1f2937;
+      color: white;
+    }
+
+    .dark .word {
+      color: #60a5fa;
     }
   </style>
 </head>
@@ -75,106 +104,94 @@
 <body>
 
 <header>
-  <h1>📘 Audio Dictionary Pro v2</h1>
-  <input type="text" id="searchBox" onkeyup="searchWord()" placeholder="Search words...">
+  <h1>📘 Dictionary Pro v4</h1>
+
+  <input id="search" onkeyup="searchWord()" placeholder="Search word...">
+
+  <div class="topbar">
+    <button class="small" onclick="toggleDark()">🌙 Dark Mode</button>
+  </div>
 </header>
 
-<div class="container" id="wordList">
+<div class="container" id="list">
+
+  <!-- WORDS -->
 
   <div class="card">
     <div class="word">Apple</div>
-    <div class="meaning">A round fruit that is usually red, green, or yellow.</div>
-    <button onclick="speak('Apple A round fruit usually red green or yellow')">🔊 Listen</button>
+    <div class="type">Noun</div>
+    <div class="meaning">A fruit that is red, green, or yellow.</div>
+    <button onclick="speak('Apple a fruit')">🔊</button>
+    <button onclick="fav(this)">⭐</button>
   </div>
 
   <div class="card">
-    <div class="word">Brave</div>
-    <div class="meaning">Showing courage and not being afraid.</div>
-    <button onclick="speak('Brave showing courage and not being afraid')">🔊 Listen</button>
+    <div class="word">Run</div>
+    <div class="type">Verb</div>
+    <div class="meaning">To move fast on foot.</div>
+    <button onclick="speak('Run to move fast')">🔊</button>
+    <button onclick="fav(this)">⭐</button>
   </div>
 
   <div class="card">
-    <div class="word">Curious</div>
-    <div class="meaning">Wanting to know or learn more about something.</div>
-    <button onclick="speak('Curious wanting to know or learn more')">🔊 Listen</button>
+    <div class="word">Beautiful</div>
+    <div class="type">Adjective</div>
+    <div class="meaning">Very attractive or pleasing.</div>
+    <button onclick="speak('Beautiful very attractive')">🔊</button>
+    <button onclick="fav(this)">⭐</button>
   </div>
 
   <div class="card">
-    <div class="word">Dream</div>
-    <div class="meaning">Thoughts while sleeping or something you want in life.</div>
-    <button onclick="speak('Dream thoughts while sleeping or goals in life')">🔊 Listen</button>
+    <div class="word">Study</div>
+    <div class="type">Verb</div>
+    <div class="meaning">To learn by reading or practicing.</div>
+    <button onclick="speak('Study to learn')">🔊</button>
+    <button onclick="fav(this)">⭐</button>
   </div>
 
   <div class="card">
-    <div class="word">Energy</div>
-    <div class="meaning">Power used to do work or stay active.</div>
-    <button onclick="speak('Energy power used to do work or stay active')">🔊 Listen</button>
-  </div>
-
-  <div class="card">
-    <div class="word">Focus</div>
-    <div class="meaning">Full attention on something.</div>
-    <button onclick="speak('Focus full attention on something')">🔊 Listen</button>
-  </div>
-
-  <div class="card">
-    <div class="word">Kindness</div>
-    <div class="meaning">Being caring, helpful, and nice to others.</div>
-    <button onclick="speak('Kindness being caring helpful and nice')">🔊 Listen</button>
-  </div>
-
-  <div class="card">
-    <div class="word">Knowledge</div>
-    <div class="meaning">Information and understanding about something.</div>
-    <button onclick="speak('Knowledge information and understanding')">🔊 Listen</button>
-  </div>
-
-  <div class="card">
-    <div class="word">Honest</div>
-    <div class="meaning">Always telling the truth.</div>
-    <button onclick="speak('Honest always telling the truth')">🔊 Listen</button>
-  </div>
-
-  <div class="card">
-    <div class="word">Respect</div>
-    <div class="meaning">Treating others with care and value.</div>
-    <button onclick="speak('Respect treating others with care and value')">🔊 Listen</button>
+    <div class="word">Kind</div>
+    <div class="type">Adjective</div>
+    <div class="meaning">Being nice and helpful.</div>
+    <button onclick="speak('Kind being nice')">🔊</button>
+    <button onclick="fav(this)">⭐</button>
   </div>
 
 </div>
 
 <script>
-  function speak(text) {
-    let speech = new SpeechSynthesisUtterance(text);
-    speech.lang = "en-US";
-    speech.rate = 0.9;
-    window.speechSynthesis.speak(speech);
-  }
+function speak(text) {
+  let msg = new SpeechSynthesisUtterance(text);
+  msg.lang = "en-US";
+  msg.rate = 0.9;
+  window.speechSynthesis.speak(msg);
+}
 
-  function searchWord() {
-    let input = document.getElementById("searchBox").value.toLowerCase();
-    let cards = document.getElementsByClassName("card");
+function searchWord() {
+  let input = document.getElementById("search").value.toLowerCase();
+  let cards = document.getElementsByClassName("card");
 
-    for (let i = 0; i < cards.length; i++) {
-      let wordEl = cards[i].querySelector(".word");
-      let meaningEl = cards[i].querySelector(".meaning");
+  for (let card of cards) {
+    let word = card.querySelector(".word").innerText.toLowerCase();
+    let meaning = card.querySelector(".meaning").innerText.toLowerCase();
 
-      let wordText = wordEl.innerText;
-      let meaningText = meaningEl.innerText;
-
-      // reset
-      wordEl.innerHTML = wordText;
-      meaningEl.innerHTML = meaningText;
-
-      if (input !== "" && (wordText.toLowerCase().includes(input) || meaningText.toLowerCase().includes(input))) {
-        
-        let regex = new RegExp(input, "gi");
-
-        wordEl.innerHTML = wordText.replace(regex, match => <span class="highlight">${match}</span>);
-        meaningEl.innerHTML = meaningText.replace(regex, match => <span class="highlight">${match}</span>);
-      }
+    if (word.includes(input) || meaning.includes(input)) {
+      card.style.display = "block";
+    } else {
+      card.style.display = "none";
     }
   }
+}
+
+/* 🌙 DARK MODE */
+function toggleDark() {
+  document.body.classList.toggle("dark");
+}
+
+/* ⭐ FAVORITE */
+function fav(btn) {
+  btn.innerText = btn.innerText === "⭐" ? "❤️" : "⭐";
+}
 </script>
 
 </body>
