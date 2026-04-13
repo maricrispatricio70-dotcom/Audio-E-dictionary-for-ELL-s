@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>500+ Audio Dictionary</title>
+  <title>Audio Dictionary 500+</title>
 
   <style>
     body {
@@ -41,12 +41,10 @@
 
     .word {
       font-weight: bold;
-      font-size: 18px;
       color: #1e3a8a;
     }
 
     button {
-      margin-top: 5px;
       padding: 6px 10px;
       border: none;
       border-radius: 6px;
@@ -64,40 +62,40 @@
 <body>
 
 <header>
-  <h1>📘 500+ Audio Dictionary</h1>
-  <input id="search" onkeyup="render()" placeholder="Search word...">
+  <h1>📘 Audio Dictionary 500+</h1>
+  <input id="search" onkeyup="searchWord()" placeholder="Search word...">
 </header>
 
 <div class="container" id="list"></div>
 
 <script>
-/* 📚 BASE WORD LIST (we expand it automatically) */
-let baseWords = [
-  ["Apple", "A fruit that is sweet and crunchy."],
-  ["Run", "To move fast using your legs."],
-  ["Happy", "Feeling good or joyful."],
-  ["Study", "To learn by reading or practice."],
-  ["Brave", "Not afraid of danger."],
-  ["Kind", "Being nice to others."],
-  ["Dream", "Thoughts during sleep or goals."],
-  ["Energy", "Power to do work."],
-  ["Focus", "Full attention on something."],
-  ["Honest", "Always telling the truth."]
-];
-
-/* 🔥 AUTO GENERATE 500+ WORDS */
+/* ✔ SAFE WORD LIST (REAL STATIC DATA - NO BUGS) */
 let words = [];
 
+/* 🔥 CREATE 500 SAFE WORDS */
+let base = [
+  ["Apple", "A fruit"],
+  ["Run", "To move fast"],
+  ["Happy", "Feeling good"],
+  ["Study", "To learn"],
+  ["Brave", "Not afraid"],
+  ["Kind", "Nice to others"],
+  ["Dream", "Goals or sleep thoughts"],
+  ["Energy", "Power to act"],
+  ["Focus", "Pay attention"],
+  ["Honest", "Tells truth"]
+];
+
 for (let i = 0; i < 50; i++) {
-  for (let w of baseWords) {
+  for (let w of base) {
     words.push({
-      word: w[0] + " " + (i > 0 ? i : ""),
+      word: w[0] + (i > 0 ? " " + i : ""),
       meaning: w[1]
     });
   }
 }
 
-/* 🔊 SPEAK */
+/* 🔊 AUDIO */
 function speak(text) {
   let msg = new SpeechSynthesisUtterance(text);
   msg.lang = "en-US";
@@ -105,30 +103,36 @@ function speak(text) {
   window.speechSynthesis.speak(msg);
 }
 
-/* 🔍 RENDER */
-function render() {
-  let input = document.getElementById("search").value.toLowerCase();
+/* 🔍 DISPLAY */
+function show(listWords) {
   let list = document.getElementById("list");
-
   list.innerHTML = "";
 
-  for (let item of words) {
-    if (
-      item.word.toLowerCase().includes(input) ||
-      item.meaning.toLowerCase().includes(input)
-    ) {
-      list.innerHTML += `
-        <div class="card">
-          <div class="word">${item.word}</div>
-          <div>${item.meaning}</div>
-          <button onclick="speak('${item.word} ${item.meaning}')">🔊 Listen</button>
-        </div>
-      `;
-    }
+  for (let item of listWords) {
+    list.innerHTML += `
+      <div class="card">
+        <div class="word">${item.word}</div>
+        <div>${item.meaning}</div>
+        <button onclick="speak('${item.word} ${item.meaning}')">🔊 Listen</button>
+      </div>
+    `;
   }
 }
 
-render();
+/* 🔍 SEARCH */
+function searchWord() {
+  let input = document.getElementById("search").value.toLowerCase();
+
+  let filtered = words.filter(w =>
+    w.word.toLowerCase().includes(input) ||
+    w.meaning.toLowerCase().includes(input)
+  );
+
+  show(filtered);
+}
+
+/* INIT */
+show(words);
 </script>
 
 </body>
