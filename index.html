@@ -1,198 +1,111 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Dictionary Pro v4</title>
+// 1. Data Structure (const dictionaryData = [
+    { word: "Aberration", definition: "A departure from what is normal or expected." },
+    { word: "Abhor", definition: "To regard with disgust and hatred." },
+    { word: "Ambivalent", definition: "Having mixed feelings or contradictory ideas." },
+    { word: "Anachronism", definition: "Something belonging to a period other than that in which it exists." },
+    { word: "Arbitrary", definition: "Based on random choice or personal whim." },
+    { word: "Assiduous", definition: "Showing great care and perseverance." },
+    { word: "Benevolent", definition: "Well-meaning and kindly." },
+    { word: "Bias", definition: "Prejudice in favor of or against one thing or person." },
+    { word: "Brusque", definition: "Abrupt or offhand in speech or manner." },
+    { word: "Callous", definition: "Showing a cruel or insensitive disregard for others." },
+    { word: "Camaraderie", definition: "Mutual trust and friendship among people." },
+    { word: "Candor", definition: "The quality of being open and honest." },
+    { word: "Capitulate", definition: "To cease to resist an opponent; surrender." },
+    { word: "Circumspect", definition: "Wary and unwilling to take risks." },
+    { word: "Coherent", definition: "Logical and consistent." },
+    { word: "Complacency", definition: "A feeling of smug satisfaction with oneself." },
+    { word: "Conundrum", definition: "A confusing and difficult problem or question." },
+    { word: "Deference", definition: "Humble submission and respect." },
+    { word: "Delineate", definition: "To describe or portray something precisely." },
+    { word: "Demure", definition: "Reserved, modest, and shy." },
+    { word: "Depict", definition: "To show or represent by a drawing or other art form." },
+    { word: "Deride", definition: "To express contempt for; ridicule." },
+    { word: "Despot", definition: "A ruler or person who holds absolute power." },
+    { word: "Diligence", definition: "Careful and persistent work or effort." },
+    { word: "Disparate", definition: "Essentially different in kind; not allowing comparison." },
+    { word: "Duplicity", definition: "Deceitfulness; double-dealing." },
+    { word: "Eclectic", definition: "Deriving ideas or style from a broad range of sources." },
+    { word: "Eloquent", definition: "Fluent or persuasive in speaking or writing." },
+    { word: "Empathy", definition: "The ability to understand and share the feelings of another." },
+    { word: "Enervate", definition: "To cause someone to feel drained of energy." },
+    { word: "Enigma", definition: "A person or thing that is mysterious or difficult to understand." },
+    { word: "Epitome", definition: "A person or thing that is a perfect example of a quality." },
+    { word: "Equanimity", definition: "Mental calmness and composure, especially in a difficult situation." },
+    { word: "Equivocal", definition: "Open to more than one interpretation; ambiguous." },
+    { word: "Erudite", definition: "Having or showing great knowledge or learning." },
+    { word: "Esoteric", definition: "Intended for or likely to be understood by only a small number of people." },
+    { word: "Euphemism", definition: "A mild word substituted for one considered too harsh." },
+    { word: "Exacerbate", definition: "To make a problem or bad situation worse." },
+    { word: "Exacting", definition: "Making great demands on one's skill or attention." },
+    { word: "Exult", definition: "To show or feel triumphant elation or jubilation." },
+    { word: "Fabricate", definition: "To invent or conconct something, typically with deceitful intent." },
+    { word: "Facetious", definition: "Treating serious issues with inappropriate humor." },
+    { word: "Fallacy", definition: "A mistaken belief, especially one based on unsound argument." },
+    { word: "Fastidious", definition: "Very attentive to and concerned about accuracy and detail." },
+    { word: "Fervent", definition: "Having or displaying a passionate intensity." },
+    { word: "Fortuitous", definition: "Happening by accident or chance rather than design." },
+    { word: "Frivolous", definition: "Not having any serious purpose or value." },
+    { word: "Frugal", definition: "Sparing or economical with regard to money or food." },
+    { word: "Garrulous", definition: "Excessively talkative, especially on trivial matters." },
+    { word: "Gratuitous", definition: "Uncalled for; lacking good reason; unwarranted." },
+    { word: "Gregarious", definition: "Fond of company; sociable." },
+    { word: "Guile", definition: "Sly or cunning intelligence." },
+    { word: "Haughty", definition: "Arrogantly superior and disdainful." },
+    { word: "Hypocrisy", definition: "The practice of claiming to have moral standards to which one's behavior does not conform." },
+    { word: "Impeccable", definition: "In accordance with the highest standards; faultless." },
+    { word: "Impetuous", definition: "Acting or done quickly and without thought or care." },
+    { word: "Implacable", definition: "Relentless; unstoppable." },
+    { word: "Inane", definition: "Silly; stupid." },
+    { word: "Incisive", definition: "Intelligently analytical and clear-thinking." },
+    { word: "Incorrigible", definition: "Not able to be corrected, improved, or reformed." },
+    { word: "Indolent", definition: "Wanting to avoid activity or exertion; lazy." },
+    { word: "Ineffable", definition: "Too great or extreme to be expressed or described in words." },
+    { word: "Innate", definition: "Inborn; natural." },
+    { word)
+const dictionaryData = [
+    { word: "Abnegation", definition: "The act of renouncing or rejecting something." },
+    { word: "Ephemeral", definition: "Lasting for a very short time." },
+    { word: "Limerence", definition: "The state of being infatuated with another person." },
+    { word: "Sempiternal", definition: "Everlasting and eternal." },
+    // ... add more words here
+];
 
-  <style>
-    body {
-      font-family: Arial;
-      margin: 0;
-      background: #f1f5ff;
-      transition: 0.3s;
-    }
+const dictionaryList = document.getElementById('dictionaryList');
 
-    header {
-      background: #1e3a8a;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-
-    #search {
-      width: 80%;
-      padding: 10px;
-      margin-top: 10px;
-      border-radius: 8px;
-      border: none;
-    }
-
-    .topbar {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    button.small {
-      padding: 6px 10px;
-      font-size: 12px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 20px;
-    }
-
-    .card {
-      background: white;
-      margin: 10px 0;
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-
-    .word {
-      font-size: 20px;
-      font-weight: bold;
-      color: #1e3a8a;
-    }
-
-    .type {
-      font-size: 12px;
-      color: gray;
-    }
-
-    .meaning {
-      margin: 5px 0;
-    }
-
-    button {
-      background: #2563eb;
-      color: white;
-      border: none;
-      padding: 6px 10px;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-right: 5px;
-    }
-
-    button:hover {
-      background: #1e40af;
-    }
-
-    /* 🌙 DARK MODE */
-    .dark {
-      background: #111827;
-      color: white;
-    }
-
-    .dark .card {
-      background: #1f2937;
-      color: white;
-    }
-
-    .dark .word {
-      color: #60a5fa;
-    }
-  </style>
-</head>
-
-<body>
-
-<header>
-  <h1>📘 Dictionary Pro v4</h1>
-
-  <input id="search" onkeyup="searchWord()" placeholder="Search word...">
-
-  <div class="topbar">
-    <button class="small" onclick="toggleDark()">🌙 Dark Mode</button>
-  </div>
-</header>
-
-<div class="container" id="list">
-
-  <!-- WORDS -->
-
-  <div class="card">
-    <div class="word">Apple</div>
-    <div class="type">Noun</div>
-    <div class="meaning">A fruit that is red, green, or yellow.</div>
-    <button onclick="speak('Apple a fruit')">🔊</button>
-    <button onclick="fav(this)">⭐</button>
-  </div>
-
-  <div class="card">
-    <div class="word">Run</div>
-    <div class="type">Verb</div>
-    <div class="meaning">To move fast on foot.</div>
-    <button onclick="speak('Run to move fast')">🔊</button>
-    <button onclick="fav(this)">⭐</button>
-  </div>
-
-  <div class="card">
-    <div class="word">Beautiful</div>
-    <div class="type">Adjective</div>
-    <div class="meaning">Very attractive or pleasing.</div>
-    <button onclick="speak('Beautiful very attractive')">🔊</button>
-    <button onclick="fav(this)">⭐</button>
-  </div>
-
-  <div class="card">
-    <div class="word">Study</div>
-    <div class="type">Verb</div>
-    <div class="meaning">To learn by reading or practicing.</div>
-    <button onclick="speak('Study to learn')">🔊</button>
-    <button onclick="fav(this)">⭐</button>
-  </div>
-
-  <div class="card">
-    <div class="word">Kind</div>
-    <div class="type">Adjective</div>
-    <div class="meaning">Being nice and helpful.</div>
-    <button onclick="speak('Kind being nice')">🔊</button>
-    <button onclick="fav(this)">⭐</button>
-  </div>
-
-</div>
-
-<script>
-function speak(text) {
-  let msg = new SpeechSynthesisUtterance(text);
-  msg.lang = "en-US";
-  msg.rate = 0.9;
-  window.speechSynthesis.speak(msg);
+// 2. Function to display words
+function displayWords(data) {
+    dictionaryList.innerHTML = '';
+    data.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'word-card';
+        card.innerHTML = `
+            <div class="word-header">
+                <strong>${item.word}</strong>
+                <button class="audio-btn" onclick="playAudio('${item.word}')">🔊 Listen</button>
+            </div>
+            <p class="definition">${item.definition}</p>
+        `;
+        dictionaryList.appendChild(card);
+    });
 }
 
-function searchWord() {
-  let input = document.getElementById("search").value.toLowerCase();
-  let cards = document.getElementsByClassName("card");
-
-  for (let card of cards) {
-    let word = card.querySelector(".word").innerText.toLowerCase();
-    let meaning = card.querySelector(".meaning").innerText.toLowerCase();
-
-    if (word.includes(input) || meaning.includes(input)) {
-      card.style.display = "block";
-    } else {
-      card.style.display = "none";
-    }
-  }
+// 3. Search Filter Logic
+function filterWords() {
+    const searchTerm = document.getElementById('searchBar').value.toLowerCase();
+    const filtered = dictionaryData.filter(item => 
+        item.word.toLowerCase().includes(searchTerm)
+    );
+    displayWords(filtered);
 }
 
-/* 🌙 DARK MODE */
-function toggleDark() {
-  document.body.classList.toggle("dark");
+// 4. Text-to-Speech Audio
+function playAudio(text) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    utterance.rate = 0.9; // Slightly slower for clarity
+    window.speechSynthesis.speak(utterance);
 }
 
-/* ⭐ FAVORITE */
-function fav(btn) {
-  btn.innerText = btn.innerText === "⭐" ? "❤️" : "⭐";
-}
-</script>
-
-</body>
-</html>
+// Initial Load
+displayWords(dictionaryData);
